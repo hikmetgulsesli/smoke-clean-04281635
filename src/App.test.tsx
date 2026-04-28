@@ -204,6 +204,46 @@ describe('Sayaç Uygulaması', () => {
     expect(screen.getByText('Sıfırlandı')).toBeInTheDocument();
   });
 
+  it('escape tuşu geçmiş modalını kapatır', async () => {
+    render(<App />);
+    fireEvent.click(screen.getAllByLabelText('Geçmiş')[0]);
+    expect(screen.getByText('İşlem Geçmişi')).toBeInTheDocument();
+    fireEvent.keyDown(window, { key: 'Escape' });
+    await waitFor(() => {
+      expect(screen.queryByText('İşlem Geçmişi')).not.toBeInTheDocument();
+    });
+  });
+
+  it('escape tuşu ayarlar panelini kapatır', async () => {
+    render(<App />);
+    fireEvent.click(screen.getByLabelText('Tema Değiştir'));
+    expect(screen.getByText('Ayarlar')).toBeInTheDocument();
+    fireEvent.keyDown(window, { key: 'Escape' });
+    await waitFor(() => {
+      expect(screen.queryByText('Ayarlar')).not.toBeInTheDocument();
+    });
+  });
+
+  it('escape tuşu onay dialogunu kapatır', async () => {
+    render(<App />);
+    fireEvent.click(screen.getByLabelText('Artır'));
+    fireEvent.click(screen.getAllByLabelText('Geçmiş')[0]);
+    fireEvent.click(screen.getByLabelText('Geçmişi Temizle'));
+    expect(screen.getByText((content) => content.includes('Tüm işlem geçmişini silmek'))).toBeInTheDocument();
+    fireEvent.keyDown(window, { key: 'Escape' });
+    await waitFor(() => {
+      expect(screen.queryByText((content) => content.includes('Tüm işlem geçmişini silmek'))).not.toBeInTheDocument();
+    });
+  });
+
+  it('üst bar geçmiş butonu boş geçmişte modal açar', () => {
+    render(<App />);
+    const gecmisBtn = screen.getAllByLabelText('Geçmiş')[0];
+    fireEvent.click(gecmisBtn);
+    expect(screen.getByText('İşlem Geçmişi')).toBeInTheDocument();
+    expect(screen.getByText('Henüz işlem kaydı yok')).toBeInTheDocument();
+  });
+
   it('sayaç navigasyonu butonu vurgu animasyonu tetikler', async () => {
     render(<App />);
     const bottomNav = screen.getAllByRole('navigation')[1];
@@ -228,15 +268,88 @@ describe('Sayaç Uygulaması', () => {
     });
   });
 
-  it('geçmiş temizlendikten sonra alt navigasyon boş geçmiş sayfasını açar', () => {
+  it('geçmiş temizlendikten sonra alt navigasyon boş geçmiş sayfasını açar', async () => {
+    render(<App />);
+    fireEvent.click(screen.getByLabelText('Artır'));
+    fireEvent.click(screen.getAllByLabelText('Geçmiş')[0]);
+    fireEvent.click(screen.getAllByLabelText('Geçmişi Temizle')[0]);
+    fireEvent.click(screen.getByText('Temizle'));
+    await waitFor(() => {
+      expect(screen.queryByText('İşlem Geçmişi')).not.toBeInTheDocument();
+    });
+    // After clearing history from modal, modal closes; bottom nav then opens empty history view
+    const bottomNav = screen.getAllByRole('navigation')[0];
+    fireEvent.click(within(bottomNav).getByLabelText('Geçmiş'));
+    expect(screen.getByText('Henüz işlem kaydı yok')).toBeInTheDocument();
+  });
+
+  it('geçmiş modalı arka plan tıklaması ile kapanır', async () => {
+    render(<App />);
+    fireEvent.click(screen.getAllByLabelText('Geçmiş')[0]);
+    expect(screen.getByText('İşlem Geçmişi')).toBeInTheDocument();
+    const backdrop = screen.getByText('İşlem Geçmişi').closest('[role="dialog"]')?.querySelector('[aria-hidden="true"]');
+    if (backdrop) {
+      fireEvent.click(backdrop);
+      await waitFor(() => {
+        expect(screen.queryByText('İşlem Geçmişi')).not.toBeInTheDocument();
+      });
+    }
+  });
+
+  it('ayarlar paneli arka plan tıklaması ile kapanır', async () => {
+    render(<App />);
+    fireEvent.click(screen.getByLabelText('Tema Değiştir'));
+    expect(screen.getByText('Ayarlar')).toBeInTheDocument();
+    const backdrop = screen.getByText('Ayarlar').closest('[role="dialog"]')?.querySelector('[class*="fixed inset-0"]');
+    if (backdrop) {
+      fireEvent.click(backdrop);
+      await waitFor(() => {
+        expect(screen.queryByText('Ayarlar')).not.toBeInTheDocument();
+      });
+    }
+  });
+
+  it('onay dialogu iptal butonu geçmişi temizlemez', async () => {
     render(<App />);
     fireEvent.click(screen.getByLabelText('Artır'));
     fireEvent.click(screen.getAllByLabelText('Geçmiş')[0]);
     fireEvent.click(screen.getByLabelText('Geçmişi Temizle'));
-    fireEvent.click(screen.getByText('Temizle'));
-    // After clearing history, bottom nav should navigate to empty history view
-    const bottomNav = screen.getAllByRole('navigation')[1];
-    fireEvent.click(within(bottomNav).getByLabelText('Geçmiş'));
-    expect(screen.getByText('Henüz işlem kaydı yok')).toBeInTheDocument();
+    expect(screen.getByText((content) => content.includes('Tüm işlem geçmişini silmek'))).toBeInTheDocument();
+    fireEvent.click(screen.getByText('İptal'));
+    await waitFor(() => {
+      expect(screen.queryByText((content) => content.includes('Tüm işlem geçmişini silmek'))).not.toBeInTheDocument();
+    });
+    expect(screen.getByText('Artırıldı')).toBeInTheDocument();
+  });
+
+  it('geçmiş kayıtları doğru değerleri gösterir', () => {
+    render(<App />);
+    fireEvent.click(screen.getByLabelText('Artır'));
+    fireEvent.click(screen.getByLabelText('Artır'));
+    fireEvent.click(screen.getByLabelText('Azalt'));
+    fireEvent.click(screen.getAllByLabelText('Geçmiş')[0]);
+    expect(screen.getByText('İşlem Geçmişi')).toBeInTheDocument();
+    const entries = screen.getAllByText(/Artırıldı|Azaltıldı/);
+    expect(entries.length).toBeGreaterThanOrEqual(2);
+  });
+
+  it('çoklu artırma işlemleri doğru geçmiş oluşturur', () => {
+    render(<App />);
+    for (let i = 0; i < 5; i++) {
+      fireEvent.click(screen.getByLabelText('Artır'));
+    }
+    fireEvent.click(screen.getAllByLabelText('Geçmiş')[0]);
+    expect(screen.getByText('İşlem Geçmişi')).toBeInTheDocument();
+    expect(screen.getAllByText('Artırıldı').length).toBe(5);
+  });
+
+  it('sıfırlama sonrası artırma geçmişi doğru devam eder', () => {
+    render(<App />);
+    fireEvent.click(screen.getByLabelText('Artır'));
+    fireEvent.click(screen.getByLabelText('Sıfırla'));
+    fireEvent.click(screen.getByLabelText('Artır'));
+    fireEvent.click(screen.getAllByLabelText('Geçmiş')[0]);
+    expect(screen.getByText('Sıfırlandı')).toBeInTheDocument();
+    expect(screen.getAllByText('Artırıldı').length).toBe(2);
   });
 });

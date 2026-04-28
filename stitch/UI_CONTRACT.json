@@ -1,0 +1,212 @@
+[
+  {
+    "screenId": "10a4cb512ec9419a9b3ad671d6d51ba6",
+    "screenTitle": "Ana Sayfa",
+    "deviceType": "DESKTOP",
+    "elements": [
+      {
+        "type": "link",
+        "label": "Sayaç",
+        "href": "#",
+        "line": 142
+      },
+      {
+        "type": "link",
+        "label": "Geçmiş",
+        "href": "#",
+        "line": 147
+      },
+      {
+        "type": "button",
+        "label": "history",
+        "line": 99
+      },
+      {
+        "type": "button",
+        "label": "contrast",
+        "line": 102
+      },
+      {
+        "type": "button",
+        "label": "remove",
+        "line": 126
+      },
+      {
+        "type": "button",
+        "label": "add",
+        "line": 130
+      },
+      {
+        "type": "button",
+        "label": "Sıfırla",
+        "line": 134
+      }
+    ],
+    "navigation": [
+      {
+        "type": "link",
+        "label": "Sayaç",
+        "href": "#",
+        "line": 142
+      },
+      {
+        "type": "link",
+        "label": "Geçmiş",
+        "href": "#",
+        "line": 147
+      }
+    ],
+    "buttons": [
+      {
+        "type": "button",
+        "label": "history",
+        "line": 99
+      },
+      {
+        "type": "button",
+        "label": "contrast",
+        "line": 102
+      },
+      {
+        "type": "button",
+        "label": "remove",
+        "line": 126
+      },
+      {
+        "type": "button",
+        "label": "add",
+        "line": 130
+      },
+      {
+        "type": "button",
+        "label": "Sıfırla",
+        "line": 134
+      }
+    ],
+    "inputs": [],
+    "hardcodedData": [],
+    "totalInteractive": 7,
+    "requiresRouter": false,
+    "requiresDragDrop": false
+  },
+  {
+    "screenId": "e8e6b145fdd148feb94666dd9e29cd05",
+    "screenTitle": "Geçmiş Modalı",
+    "deviceType": "DESKTOP",
+    "elements": [
+      {
+        "type": "button",
+        "label": "Sayaç",
+        "line": 105
+      },
+      {
+        "type": "button",
+        "label": "Geçmiş",
+        "line": 109
+      },
+      {
+        "type": "button",
+        "label": "close",
+        "line": 124
+      },
+      {
+        "type": "button",
+        "label": "Geçmişi Temizle",
+        "line": 199
+      }
+    ],
+    "navigation": [],
+    "buttons": [
+      {
+        "type": "button",
+        "label": "Sayaç",
+        "line": 105
+      },
+      {
+        "type": "button",
+        "label": "Geçmiş",
+        "line": 109
+      },
+      {
+        "type": "button",
+        "label": "close",
+        "line": 124
+      },
+      {
+        "type": "button",
+        "label": "Geçmişi Temizle",
+        "line": 199
+      }
+    ],
+    "inputs": [],
+    "hardcodedData": [],
+    "totalInteractive": 4,
+    "requiresRouter": false,
+    "requiresDragDrop": false
+  },
+  {
+    "screenId": "37a31efcc2074b0ba160c705d2e977b0",
+    "screenTitle": "Boş Geçmiş Durumu",
+    "deviceType": "DESKTOP",
+    "elements": [
+      {
+        "type": "button",
+        "label": "history",
+        "line": 89
+      },
+      {
+        "type": "button",
+        "label": "contrast",
+        "line": 92
+      },
+      {
+        "type": "button",
+        "label": "Sayaca Dön",
+        "line": 122
+      },
+      {
+        "type": "button",
+        "label": "Sayaç",
+        "line": 130
+      },
+      {
+        "type": "button",
+        "label": "Geçmiş",
+        "line": 135
+      }
+    ],
+    "navigation": [],
+    "buttons": [
+      {
+        "type": "button",
+        "label": "history",
+        "line": 89
+      },
+      {
+        "type": "button",
+        "label": "contrast",
+        "line": 92
+      },
+      {
+        "type": "button",
+        "label": "Sayaca Dön",
+        "line": 122
+      },
+      {
+        "type": "button",
+        "label": "Sayaç",
+        "line": 130
+      },
+      {
+        "type": "button",
+        "label": "Geçmiş",
+        "line": 135
+      }
+    ],
+    "inputs": [],
+    "hardcodedData": [],
+    "totalInteractive": 5,
+    "requiresRouter": false,
+    "requiresDragDrop": false
+  }
+]

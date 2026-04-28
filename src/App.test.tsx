@@ -124,4 +124,37 @@ describe('Sayaç Uygulaması', () => {
       expect(screen.getByText('Genel Sayaç')).toBeInTheDocument();
     });
   });
+
+  it('azalt butonu sayacı 0 altına düşürmez', () => {
+    render(<App />);
+    const azaltBtn = screen.getByLabelText('Azalt');
+    fireEvent.click(azaltBtn);
+    expect(screen.getByText('0')).toBeInTheDocument();
+  });
+
+  it('alt navigasyon geçmiş sayfasına gider', () => {
+    render(<App />);
+    fireEvent.click(screen.getAllByLabelText('Geçmiş')[1]);
+    expect(screen.getByText('Henüz işlem kaydı yok')).toBeInTheDocument();
+  });
+
+  it('alt navigasyon sayaç sayfasına döner', async () => {
+    render(<App />);
+    fireEvent.click(screen.getAllByLabelText('Geçmiş')[1]);
+    expect(screen.getByText('Henüz işlem kaydı yok')).toBeInTheDocument();
+    fireEvent.click(screen.getByLabelText('Sayaç'));
+    await waitFor(() => {
+      expect(screen.getByText('Genel Sayaç')).toBeInTheDocument();
+    });
+  });
+
+  it('monolith başlık tıklaması sayaç sayfasına döner', async () => {
+    render(<App />);
+    fireEvent.click(screen.getAllByLabelText('Geçmiş')[1]);
+    expect(screen.getByText('Henüz işlem kaydı yok')).toBeInTheDocument();
+    fireEvent.click(screen.getByLabelText('Ana Sayfa'));
+    await waitFor(() => {
+      expect(screen.getByText('Genel Sayaç')).toBeInTheDocument();
+    });
+  });
 });

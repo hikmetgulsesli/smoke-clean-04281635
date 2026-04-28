@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, within } from '@testing-library/react';
 import App from './App';
 
 // Mock localStorage
@@ -134,15 +134,17 @@ describe('Sayaç Uygulaması', () => {
 
   it('alt navigasyon geçmiş sayfasına gider', () => {
     render(<App />);
-    fireEvent.click(screen.getByLabelText('Geçmiş Sayfasına Git'));
+    const bottomNav = screen.getAllByRole('navigation')[1];
+    fireEvent.click(within(bottomNav).getByLabelText('Geçmiş'));
     expect(screen.getByText('Henüz işlem kaydı yok')).toBeInTheDocument();
   });
 
   it('alt navigasyon sayaç sayfasına döner', async () => {
     render(<App />);
-    fireEvent.click(screen.getByLabelText('Geçmiş Sayfasına Git'));
+    const bottomNav2 = screen.getAllByRole('navigation')[1];
+    fireEvent.click(within(bottomNav2).getByLabelText('Geçmiş'));
     expect(screen.getByText('Henüz işlem kaydı yok')).toBeInTheDocument();
-    fireEvent.click(screen.getByLabelText('Sayaca Git'));
+    fireEvent.click(screen.getByLabelText('Sayaç'));
     await waitFor(() => {
       expect(screen.getByText('Genel Sayaç')).toBeInTheDocument();
     });
@@ -150,9 +152,9 @@ describe('Sayaç Uygulaması', () => {
 
   it('monolith başlık tıklaması sayaç sayfasına döner', async () => {
     render(<App />);
-    fireEvent.click(screen.getByLabelText('Geçmiş Sayfasına Git'));
+    fireEvent.click(screen.getAllByLabelText('Geçmiş')[1]);
     expect(screen.getByText('Henüz işlem kaydı yok')).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: /MONOLITH/i }));
+    fireEvent.click(screen.getByLabelText('Ana Sayfa'));
     await waitFor(() => {
       expect(screen.getByText('Genel Sayaç')).toBeInTheDocument();
     });

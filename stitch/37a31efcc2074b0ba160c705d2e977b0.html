@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Monolith - Geçmiş</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed-dim": "#4edea3",
+                        "on-background": "#dae2fd",
+                        "tertiary-fixed-dim": "#ffb786",
+                        "inverse-surface": "#dae2fd",
+                        "outline": "#8c909f",
+                        "on-secondary-fixed": "#002113",
+                        "on-surface": "#dae2fd",
+                        "background": "#0b1326",
+                        "surface-container-low": "#131b2e",
+                        "primary-fixed-dim": "#adc6ff",
+                        "inverse-on-surface": "#283044",
+                        "on-tertiary-container": "#461f00",
+                        "on-surface-variant": "#c2c6d6",
+                        "surface-variant": "#2d3449",
+                        "primary-container": "#4d8eff",
+                        "tertiary-container": "#df7412",
+                        "surface-container-lowest": "#060e20",
+                        "error": "#ffb4ab",
+                        "on-primary-fixed-variant": "#004395",
+                        "surface": "#0b1326",
+                        "on-secondary-container": "#00311f",
+                        "on-secondary-fixed-variant": "#005236",
+                        "error-container": "#93000a",
+                        "surface-container": "#171f33",
+                        "on-primary": "#002e6a",
+                        "surface-container-highest": "#2d3449",
+                        "outline-variant": "#424754",
+                        "on-tertiary": "#502400",
+                        "on-primary-container": "#00285d",
+                        "on-primary-fixed": "#001a42",
+                        "primary-fixed": "#d8e2ff",
+                        "on-secondary": "#003824",
+                        "surface-container-high": "#222a3d",
+                        "secondary": "#4edea3",
+                        "tertiary": "#ffb786",
+                        "tertiary-fixed": "#ffdcc6",
+                        "inverse-primary": "#005ac2",
+                        "secondary-fixed": "#6ffbbe",
+                        "primary": "#adc6ff",
+                        "secondary-container": "#00a572",
+                        "surface-tint": "#adc6ff",
+                        "surface-dim": "#0b1326",
+                        "surface-bright": "#31394d",
+                        "on-error-container": "#ffdad6",
+                        "on-error": "#690005",
+                        "on-tertiary-fixed-variant": "#723600",
+                        "on-tertiary-fixed": "#311400"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter"],
+                        "display": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-[#0b1326] text-on-surface font-body h-screen flex flex-col overflow-hidden antialiased selection:bg-primary/30">
+<!-- TopAppBar -->
+<header class="w-full sticky top-0 z-50 bg-[#0b1326] flex justify-between items-center px-6 py-4 max-w-full">
+<div class="text-xl font-bold tracking-tighter text-[#adc6ff] uppercase font-['Inter']">
+            MONOLITH
+        </div>
+<div class="flex items-center gap-4 text-[#adc6ff]">
+<button class="hover:bg-[#171f33] transition-colors p-2 rounded-full active:scale-95 transition-transform flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+</button>
+<button class="hover:bg-[#171f33] transition-colors p-2 rounded-full active:scale-95 transition-transform flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="contrast">contrast</span>
+</button>
+</div>
+</header>
+<!-- Main Canvas: Empty History State -->
+<main class="flex-1 flex flex-col items-center justify-center px-8 pb-24 relative">
+<!-- Ambient background glow to add depth without lines -->
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20">
+<div class="w-64 h-64 bg-primary/10 rounded-full blur-3xl"></div>
+</div>
+<!-- Empty State Content Container (No Lines, Tonal Layering) -->
+<div class="relative z-10 flex flex-col items-center text-center max-w-sm">
+<!-- Icon Container: Deep space aesthetic -->
+<div class="w-32 h-32 mb-8 relative flex items-center justify-center">
+<!-- Outer subtle ring -->
+<div class="absolute inset-0 rounded-full bg-surface-container-low scale-100 opacity-50"></div>
+<!-- Inner core container -->
+<div class="relative w-24 h-24 rounded-full bg-surface-container flex items-center justify-center shadow-[0_0_40px_rgba(173,198,255,0.05)]">
+<span class="material-symbols-outlined text-5xl text-primary/40" data-icon="history_toggle_off" style="font-variation-settings: 'wght' 200;">history_toggle_off</span>
+</div>
+</div>
+<!-- Typography Hierarchy: High Contrast -->
+<h2 class="font-headline font-semibold text-2xl text-on-surface tracking-tight mb-4">
+                Henüz işlem kaydı yok
+            </h2>
+<p class="font-body text-base text-on-surface-variant leading-relaxed opacity-80">
+                Sayaç değerini değiştirerek ilk kaydınızı oluşturabilirsiniz.
+            </p>
+<!-- Optional: Ghost CTA to guide back to counter -->
+<button class="mt-10 px-6 py-3 rounded-full bg-surface-container-low text-primary font-label font-semibold tracking-wide hover:bg-surface-container transition-colors active:scale-95">
+                Sayaca Dön
+            </button>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full rounded-t-[24px] border-t border-[#adc6ff]/15 shadow-[0_-8px_40px_rgba(173,198,255,0.08)] bg-[#171f33]/60 backdrop-blur-3xl fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-8 pt-4 md:hidden">
+<!-- Inactive Tab: Sayaç -->
+<button class="flex flex-col items-center justify-center text-[#adc6ff]/40 px-6 py-2 hover:text-[#adc6ff] transition-all group">
+<span class="material-symbols-outlined mb-1 group-active:scale-95 duration-200" data-icon="add_circle">add_circle</span>
+<span class="font-['Inter'] text-[10px] font-semibold uppercase tracking-widest">Sayaç</span>
+</button>
+<!-- Active Tab: Geçmiş -->
+<button class="flex flex-col items-center justify-center text-[#adc6ff] bg-[#adc6ff]/10 rounded-xl px-6 py-2 active:scale-95 duration-200">
+<span class="material-symbols-outlined mb-1" data-icon="history" data-weight="fill" style="font-variation-settings: 'FILL' 1;">history</span>
+<span class="font-['Inter'] text-[10px] font-semibold uppercase tracking-widest">Geçmiş</span>
+</button>
+</nav>
+</body></html>

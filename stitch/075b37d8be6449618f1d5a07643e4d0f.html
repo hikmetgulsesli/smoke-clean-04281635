@@ -1,0 +1,161 @@
+# Ürün Gereksinimleri Dokümanı: Sayaç Uygulaması (smoke-clean-04281635)
+
+## 1. Genel Bakış
+Bu proje, kullanıcıların basit bir sayaç üzerinde artırma, azaltma ve sıfırlama işlemleri yapabileceği; tercih ettikleri tema ayarlarını kaydedebileceği ve geçmiş işlem kayıtlarını görüntüleyebileceği minimalist bir web uygulamasıdır. Hedef kitle, hızlı ve pratik bir sayaç aracına ihtiyaç duyan günlük kullanıcılardır. Uygulamanın tüm arayüzü Türkçe'dir.
+
+## 2. Hedefler
+- Kullanıcılara tek dokunuşla sayaç değerini değiştirebilme imkanı sunmak.
+- Sayaç geçmişini otomatik olarak kaydetmek ve modal pencerede sunmak.
+- Koyu ve açık tema seçenekleriyle kullanıcı deneyimini kişiselleştirmek.
+- Yükleme süresi 2 saniyenin altında, mobil ve masaüstü cihazlarda kusursuz çalışan bir deneyim sağlamak.
+- WCAG 2.1 AA erişilebilirlik standartlarına tam uygunluk.
+- Tüm buton ve ikonların gerçek, görünür ve fonksiyonel olmasını sağlamak.
+
+## 3. Tech Stack Detayı
+- **Framework:** React 18
+- **Build:** Vite
+- **Styling:** Tailwind CSS
+- **State:** useState + useReducer (yerel React state yönetimi)
+- **Storage:** localStorage (tema tercihi ve geçmiş kayıtları için)
+- **Routing:** Tek sayfalık uygulama (SPA), routing gerekmez.
+- **Icons:** Lucide React
+
+## 4. Fonksiyonel Gereksinimler
+
+### 4.1 Sayaç İşlemleri
+- Artır (+1): Mevcut değeri 1 artırır, geçmişe kaydeder.
+- Azalt (-1): Mevcut değeri 1 azaltır, negatif değerlere izin verir, geçmişe kaydeder.
+- Sıfırla: Değeri 0 yapar, geçmişe kaydeder.
+- Varsayılan başlangıç değeri: 0.
+
+### 4.2 Geçmiş Kayıtları
+- Her artırma, azaltma ve sıfırlama işlemi otomatik olarak kaydedilir.
+- Kayıt formatı: `{ action: 'increment' | 'decrement' | 'reset', value: number, timestamp: ISOString }`
+- Son 100 işlem saklanır; eski kayıtlar otomatik silinir.
+- Geçmiş modalı "Geçmişi Gör" butonuyla açılır.
+- Modal içinde kayıtlar sıralı listelenir; tarih/saat Türkçe formatlı gösterilir.
+- "Geçmişi Temizle" butonu tüm kayıtları siler; işlem öncesinde onay istemez.
+
+### 4.3 Tema Ayarları
+- İki tema seçeneği: Açık (light) ve Koyu (dark).
+- Seçim anında uygulama genelinde yansır.
+- Tercih localStorage'da `theme` anahtarıyla saklanır; sayfa yenilendiğinde geri yüklenir.
+- Tema değiştirici buton üst köşede sabit yer alır.
+
+### 4.4 Hata ve Boş Durumlar
+- Sayaç değeri Number.MAX_SAFE_INTEGER'a ulaşırsa "Değer sınırına ulaşıldı" mesajı gösterilir.
+- Geçmiş boşsa "Henüz işlem kaydı yok" mesajı gösterilir.
+- localStorage yazma hatası durumunda kullanıcıya "Ayarlar kaydedilemedi" uyarısı verilir.
+
+## 5. Veri Modeli
+
+### CounterState
+```typescript
+interface CounterState {
+  value: number;
+  history: HistoryEntry[];
+  theme: 'light' | 'dark';
+}
+
+interface HistoryEntry {
+  id: string; // crypto.randomUUID()
+  action: 'increment' | 'decrement' | 'reset';
+  previousValue: number;
+  newValue: number;
+  timestamp: string; // ISO 8601
+}
+```
+
+### localStorage Şeması
+- `counter-history`: HistoryEntry[] — son 100 kayıt.
+- `counter-theme`: 'light' | 'dark' — kullanıcı tercihi.
+
+## 6. UI/UX Gereksinimleri
+
+### 6.1 Design System Seçimi
+- **Aesthetic:** minimal
+- **Renk Paleti:**
+  - Primary: #3B82F6 (mavi)
+  - Secondary: #10B981 (yeşil)
+  - Background (light): #F8FAFC
+  - Background (dark): #0F172A
+  - Surface (light): #FFFFFF
+  - Surface (dark): #1E293B
+  - Text (light): #1E293B
+  - Text (dark): #F1F5F9
+  - Border: #E2E8F0
+  - Success: #22C55E
+  - Error: #EF4444
+  - Warning: #F59E0B
+- **Tipografi:**
+  - Heading: Inter (600/700)
+  - Body: Inter (400/500)
+- **Icon Library:** Lucide React (NEVER emoji)
+
+### 6.2 Spacing & Components
+- Spacing scale: 4/8/12/16/24/32/48 px
+- Border radius: 8px (butonlar), 12px (kartlar), 16px (modal)
+- Shadow:
+  - Kart: `0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06)`
+  - Modal: `0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04)`
+- Buton pattern: Primary (dolgu), Secondary (çerçeve), Danger (kırmızı dolgu)
+- Kart pattern: Yükleme, padding 24px, beyaz/surface arka plan.
+
+## 7. Non-Functional Requirements
+
+### 7.1 Performans
+- İlk yükleme < 1.5 saniye (3G ağında).
+- Buton tıklama yanıtı < 50ms.
+- Bundle size hedefi: < 200 KB (gzip).
+- localStorage okuma/yazma < 10ms.
+
+### 7.2 Erişilebilirlik (WCAG 2.1 AA)
+- Tüm butonlarda `aria-label` tanımlı (örn. "Sayaç değerini artır").
+- Klavye navigasyonu: Tab ile odak, Enter/Space ile tetikleme.
+- Screen reader uyumlu: Sayaç değeri `aria-live="polite"` ile duyurulur.
+- Kontrast oranı: Metin >= 4.5:1, büyük metin >= 3:1.
+- Focus state: Mavi halka (2px offset) tüm interaktif elementlerde.
+- Touch hedefleri: Minimum 48x48 px.
+
+### 7.3 Tarayıcı Desteği
+- Chrome 90+, Firefox 88+, Safari 14+, Edge 90+
+- iOS Safari 14+, Android Chrome 90+
+- Responsive aralık: 320px (mobile) → 1920px+ (desktop)
+
+## 8. Proje Yapısı
+```
+src/
+├── components/
+│   ├── CounterCard.tsx
+│   ├── HistoryModal.tsx
+│   ├── ThemeToggle.tsx
+│   └── Button.tsx
+├── screens/
+│   └── AnaSayfa.tsx
+├── hooks/
+│   └── useCounter.ts
+├── utils/
+│   └── storage.ts
+├── types/
+│   └── counter.ts
+├── App.tsx
+└── main.tsx
+```
+
+## 9. Window State (testing/dogfood için)
+```javascript
+window.app = {
+  state: 'idle',
+  counterValue: 0,
+  historyCount: 0,
+  theme: 'light'
+}
+```
+
+## 10. Ekranlar
+
+| # | Ekran Adı | Tür | Açıklama |
+|---|-----------|-----|----------|
+| 1 | Ana Sayfa | dashboard | Sayaç kartı, artır/azalt/sıfırla butonları, tema değiştirici |
+| 2 | Geçişmiş Modal | modal | Son 100 işlem kaydının listelendiği, temizleme butonu içeren modal |
+| 3 | Boş Geçmiş | empty-state | Geçmiş modalında kayıt yokken gösterilen bilgilendirme görünümü |

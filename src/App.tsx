@@ -68,6 +68,7 @@ export default function App() {
   }, [history.length, clearHighlightTimeout]);
 
   const handleNavigateCounter = useCallback(() => {
+    setShowHistoryModal(false);
     setView('counter');
     clearHighlightTimeout();
     setCounterHighlight(true);

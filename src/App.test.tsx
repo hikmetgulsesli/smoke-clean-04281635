@@ -278,7 +278,8 @@ describe('Sayaç Uygulaması', () => {
       expect(screen.queryByText('İşlem Geçmişi')).not.toBeInTheDocument();
     });
     // After clearing history from modal, modal closes; bottom nav then opens empty history view
-    const bottomNav = screen.getAllByRole('navigation')[0];
+    const navigations = screen.getAllByRole('navigation');
+    const bottomNav = navigations[navigations.length - 1];
     fireEvent.click(within(bottomNav).getByLabelText('Geçmiş'));
     expect(screen.getByText('Henüz işlem kaydı yok')).toBeInTheDocument();
   });

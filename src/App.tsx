@@ -77,20 +77,24 @@ export default function App() {
   }, []);
 
   const handleNavigateHistory = useCallback(() => {
+    clearHighlightTimeout();
     if (history.length > 0) {
       setShowHistoryModal(true);
     } else {
       setView('history');
     }
     setCounterHighlight(false);
-  }, [history.length]);
+  }, [clearHighlightTimeout, history.length]);
 
   const handleNavigateCounter = useCallback(() => {
     setShowHistoryModal(false);
     setView('counter');
     clearHighlightTimeout();
     setCounterHighlight(true);
-    highlightTimeoutRef.current = setTimeout(() => setCounterHighlight(false), 2000);
+    highlightTimeoutRef.current = setTimeout(() => {
+      setCounterHighlight(false);
+      highlightTimeoutRef.current = null;
+    }, 2000);
   }, [clearHighlightTimeout]);
 
   const handleClearHistory = useCallback(() => {

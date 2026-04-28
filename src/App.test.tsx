@@ -288,12 +288,11 @@ describe('Sayaç Uygulaması', () => {
     fireEvent.click(screen.getAllByLabelText('Geçmiş')[0]);
     expect(screen.getByText('İşlem Geçmişi')).toBeInTheDocument();
     const backdrop = screen.getByText('İşlem Geçmişi').closest('[role="dialog"]')?.querySelector('[aria-hidden="true"]');
-    if (backdrop) {
-      fireEvent.click(backdrop);
-      await waitFor(() => {
-        expect(screen.queryByText('İşlem Geçmişi')).not.toBeInTheDocument();
-      });
-    }
+    expect(backdrop).not.toBeNull();
+    fireEvent.click(backdrop!);
+    await waitFor(() => {
+      expect(screen.queryByText('İşlem Geçmişi')).not.toBeInTheDocument();
+    });
   });
 
   it('ayarlar paneli arka plan tıklaması ile kapanır', async () => {
@@ -301,12 +300,11 @@ describe('Sayaç Uygulaması', () => {
     fireEvent.click(screen.getByLabelText('Tema Değiştir'));
     expect(screen.getByText('Ayarlar')).toBeInTheDocument();
     const backdrop = screen.getByText('Ayarlar').closest('[role="dialog"]')?.querySelector('[class*="fixed inset-0"]');
-    if (backdrop) {
-      fireEvent.click(backdrop);
-      await waitFor(() => {
-        expect(screen.queryByText('Ayarlar')).not.toBeInTheDocument();
-      });
-    }
+    expect(backdrop).not.toBeNull();
+    fireEvent.click(backdrop!);
+    await waitFor(() => {
+      expect(screen.queryByText('Ayarlar')).not.toBeInTheDocument();
+    });
   });
 
   it('onay dialogu iptal butonu geçmişi temizlemez', async () => {

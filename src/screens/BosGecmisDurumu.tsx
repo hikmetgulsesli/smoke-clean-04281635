@@ -71,7 +71,7 @@ export function BosGecmisDurumu(props: BosGecmisDurumuProps) {
       <span className="font-['Inter'] text-[10px] font-semibold uppercase tracking-widest">Sayaç</span>
       </button>
       {/* Active Tab: Geçmiş */}
-      <button className="flex flex-col items-center justify-center text-[#adc6ff] bg-[#adc6ff]/10 rounded-xl px-6 py-2 active:scale-95 duration-200">
+      <button disabled className="flex flex-col items-center justify-center text-[#adc6ff] bg-[#171f33] rounded-xl px-6 py-2 active:scale-95 duration-200">
       <span className="material-symbols-outlined mb-1" data-icon="history" data-weight="fill" style={{fontVariationSettings: "'FILL' 1"}}>history</span>
       <span className="font-['Inter'] text-[10px] font-semibold uppercase tracking-widest">Geçmiş</span>
       </button>

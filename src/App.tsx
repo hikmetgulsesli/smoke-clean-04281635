@@ -42,10 +42,12 @@ export default function App() {
   const handleNavigateHistory = useCallback(() => {
     setView('history');
     setShowHistoryModal(false);
+    setCounterHighlight(false);
   }, []);
 
   const handleNavigateCounter = useCallback(() => {
     setView('counter');
+    setCounterHighlight(true);
   }, []);
 
   const handleClearHistory = useCallback(() => {

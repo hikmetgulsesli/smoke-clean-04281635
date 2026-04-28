@@ -116,15 +116,6 @@ describe('Sayaç Uygulaması', () => {
     });
   });
 
-  it('navigasyon sayaç sayfasına döner', async () => {
-    render(<App />);
-    fireEvent.click(screen.getAllByLabelText('Geçmiş')[0]);
-    fireEvent.click(screen.getByLabelText('Kapat'));
-    await waitFor(() => {
-      expect(screen.getByText('Genel Sayaç')).toBeInTheDocument();
-    });
-  });
-
   it('azalt butonu sayacı 0 altına düşürmez', () => {
     render(<App />);
     const azaltBtn = screen.getByLabelText('Azalt');
@@ -134,15 +125,15 @@ describe('Sayaç Uygulaması', () => {
 
   it('alt navigasyon geçmiş sayfasına gider', () => {
     render(<App />);
-    fireEvent.click(screen.getAllByLabelText('Geçmiş')[1]);
+    fireEvent.click(screen.getByLabelText('Geçmiş Sayfasına Git'));
     expect(screen.getByText('Henüz işlem kaydı yok')).toBeInTheDocument();
   });
 
   it('alt navigasyon sayaç sayfasına döner', async () => {
     render(<App />);
-    fireEvent.click(screen.getAllByLabelText('Geçmiş')[1]);
+    fireEvent.click(screen.getByLabelText('Geçmiş Sayfasına Git'));
     expect(screen.getByText('Henüz işlem kaydı yok')).toBeInTheDocument();
-    fireEvent.click(screen.getByLabelText('Sayaç'));
+    fireEvent.click(screen.getByLabelText('Sayaca Git'));
     await waitFor(() => {
       expect(screen.getByText('Genel Sayaç')).toBeInTheDocument();
     });
@@ -150,9 +141,9 @@ describe('Sayaç Uygulaması', () => {
 
   it('monolith başlık tıklaması sayaç sayfasına döner', async () => {
     render(<App />);
-    fireEvent.click(screen.getAllByLabelText('Geçmiş')[1]);
+    fireEvent.click(screen.getByLabelText('Geçmiş Sayfasına Git'));
     expect(screen.getByText('Henüz işlem kaydı yok')).toBeInTheDocument();
-    fireEvent.click(screen.getByLabelText('Ana Sayfa'));
+    fireEvent.click(screen.getByRole('button', { name: /MONOLITH/i }));
     await waitFor(() => {
       expect(screen.getByText('Genel Sayaç')).toBeInTheDocument();
     });

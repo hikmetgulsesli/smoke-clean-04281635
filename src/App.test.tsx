@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { render, screen, fireEvent, waitFor, within } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import App from './App';
 
 // Mock localStorage
@@ -132,17 +132,28 @@ describe('Sayaç Uygulaması', () => {
     expect(screen.getByText('0')).toBeInTheDocument();
   });
 
+  it('azalt butonu count 0 iken disabled durumdadır', () => {
+    render(<App />);
+    const azaltBtn = screen.getByLabelText('Azalt') as HTMLButtonElement;
+    expect(azaltBtn.disabled).toBe(true);
+  });
+
+  it('azalt butonu count 0dan büyükken aktiftir', () => {
+    render(<App />);
+    fireEvent.click(screen.getByLabelText('Artır'));
+    const azaltBtn = screen.getByLabelText('Azalt') as HTMLButtonElement;
+    expect(azaltBtn.disabled).toBe(false);
+  });
+
   it('alt navigasyon geçmiş sayfasına gider', () => {
     render(<App />);
-    const bottomNav = screen.getAllByRole('navigation')[1];
-    fireEvent.click(within(bottomNav).getByLabelText('Geçmiş'));
+    fireEvent.click(screen.getAllByLabelText('Geçmiş')[1]);
     expect(screen.getByText('Henüz işlem kaydı yok')).toBeInTheDocument();
   });
 
   it('alt navigasyon sayaç sayfasına döner', async () => {
     render(<App />);
-    const bottomNav2 = screen.getAllByRole('navigation')[1];
-    fireEvent.click(within(bottomNav2).getByLabelText('Geçmiş'));
+    fireEvent.click(screen.getAllByLabelText('Geçmiş')[1]);
     expect(screen.getByText('Henüz işlem kaydı yok')).toBeInTheDocument();
     fireEvent.click(screen.getByLabelText('Sayaç'));
     await waitFor(() => {

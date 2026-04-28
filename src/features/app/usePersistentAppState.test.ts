@@ -121,4 +121,57 @@ describe('usePersistentAppState', () => {
     expect(result.current.theme).toBe('light');
     expect(result.current.history).toHaveLength(1);
   });
+
+  it('geçersiz localStorage verisini yok sayar ve başlangıç değerlerini kullanır', () => {
+    localStorageMock.setItem('monolith-app-state', 'not-valid-json');
+    const { result } = renderHook(() => usePersistentAppState());
+    expect(result.current.count).toBe(0);
+    expect(result.current.history).toEqual([]);
+    expect(result.current.theme).toBe('dark');
+  });
+
+  it('negatif count içeren localStorage verisini sıfırlar', () => {
+    localStorageMock.setItem('monolith-app-state', JSON.stringify({
+      count: -5,
+      history: [],
+      theme: 'dark',
+    }));
+    const { result } = renderHook(() => usePersistentAppState());
+    expect(result.current.count).toBe(0);
+  });
+
+  it('bozuk geçmiş kayıtlarını filtreleyerek yükler', () => {
+    localStorageMock.setItem('monolith-app-state', JSON.stringify({
+      count: 3,
+      history: [
+        { id: '1', type: 'increment', value: 1, previousValue: 0, timestamp: Date.now() },
+        { id: '2', type: 'invalid', value: 2, previousValue: 1, timestamp: Date.now() },
+        { id: '3', type: 'decrement', value: 1, previousValue: 2, timestamp: Date.now() },
+      ],
+      theme: 'dark',
+    }));
+    const { result } = renderHook(() => usePersistentAppState());
+    expect(result.current.count).toBe(3);
+    expect(result.current.history).toHaveLength(2);
+    expect(result.current.history[0].type).toBe('increment');
+    expect(result.current.history[1].type).toBe('decrement');
+  });
+
+  it('fazla geçmiş kaydını 100 ile sınırlandırır', () => {
+    const manyHistory = Array.from({ length: 150 }, (_, i) => ({
+      id: String(i),
+      type: 'increment' as const,
+      value: i + 1,
+      previousValue: i,
+      timestamp: Date.now(),
+    }));
+    localStorageMock.setItem('monolith-app-state', JSON.stringify({
+      count: 150,
+      history: manyHistory,
+      theme: 'dark',
+    }));
+    const { result } = renderHook(() => usePersistentAppState());
+    expect(result.current.count).toBe(150);
+    expect(result.current.history).toHaveLength(100);
+  });
 });

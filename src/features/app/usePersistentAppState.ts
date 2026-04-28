@@ -4,18 +4,37 @@ const STORAGE_KEY = 'monolith-app-state';
 function generateId(): string {
   return `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
 }
+function isValidHistoryEntry(entry: unknown): entry is HistoryEntry {
+  if (typeof entry !== 'object' || entry === null) return false;
+  const e = entry as Record<string, unknown>;
+  return (
+    typeof e.id === 'string' &&
+    (e.type === 'increment' || e.type === 'decrement' || e.type === 'reset') &&
+    typeof e.value === 'number' &&
+    typeof e.previousValue === 'number' &&
+    typeof e.timestamp === 'number'
+  );
+}
+
 function getInitialState(): AppState {
   if (typeof window !== 'undefined') {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) {
         const parsed = JSON.parse(raw) as AppState;
+        const validHistory = Array.isArray(parsed.history)
+          ? parsed.history.filter(isValidHistoryEntry).slice(0, 100)
+          : [];
         if (
           typeof parsed.count === 'number' &&
-          Array.isArray(parsed.history) &&
+          parsed.count >= 0 &&
           (parsed.theme === 'light' || parsed.theme === 'dark')
         ) {
-          return parsed;
+          return {
+            count: parsed.count,
+            history: validHistory,
+            theme: parsed.theme,
+          };
         }
       }
     } catch {

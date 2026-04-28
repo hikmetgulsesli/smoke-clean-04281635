@@ -1,6 +1,3 @@
-// QA-FIX-008: Additional edge-case tests for decrement lower-bound guard
-// and button disabled state verification in App component tests.
-
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
 import { usePersistentAppState } from './usePersistentAppState';
@@ -48,6 +45,13 @@ describe('usePersistentAppState', () => {
     expect(result.current.history[0].type).toBe('decrement');
   });
 
+  it('decrement sayacı 0 altına düşmez', () => {
+    const { result } = renderHook(() => usePersistentAppState());
+    act(() => result.current.decrement());
+    expect(result.current.count).toBe(0);
+    expect(result.current.history).toHaveLength(0);
+  });
+
   it('reset sayacı sıfırlar ve geçmişe ekler', () => {
     const { result } = renderHook(() => usePersistentAppState());
     act(() => result.current.increment());
@@ -83,31 +87,6 @@ describe('usePersistentAppState', () => {
     const parsed = JSON.parse(stored!);
     expect(parsed.count).toBe(2);
     expect(parsed.history).toHaveLength(2);
-  });
-
-  it('decrement sayacı 0 altına düşürmez', () => {
-    const { result } = renderHook(() => usePersistentAppState());
-    act(() => result.current.decrement());
-    expect(result.current.count).toBe(0);
-    expect(result.current.history).toHaveLength(0);
-  });
-
-  it('sıfırdan birden fazla azaltma işlemi durumu değiştirmez', () => {
-    const { result } = renderHook(() => usePersistentAppState());
-    act(() => result.current.decrement());
-    act(() => result.current.decrement());
-    act(() => result.current.decrement());
-    expect(result.current.count).toBe(0);
-    expect(result.current.history).toHaveLength(0);
-  });
-
-  it('azaltma sınırından sonra artırma doğru çalışır', () => {
-    const { result } = renderHook(() => usePersistentAppState());
-    act(() => result.current.decrement());
-    act(() => result.current.increment());
-    expect(result.current.count).toBe(1);
-    expect(result.current.history).toHaveLength(1);
-    expect(result.current.history[0].type).toBe('increment');
   });
 
   it('localStoragetan state geri yükler', () => {

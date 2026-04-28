@@ -181,4 +181,26 @@ describe('Sayaç Uygulaması', () => {
     fireEvent.click(within(bottomNav).getByLabelText('Geçmiş'));
     expect(screen.getByText('İşlem Geçmişi')).toBeInTheDocument();
   });
+
+  it('geçmişi olan sayfada alt navigasyon geçmiş modalını açar ve kapatır', async () => {
+    render(<App />);
+    fireEvent.click(screen.getByLabelText('Artır'));
+    const bottomNav = screen.getAllByRole('navigation')[1];
+    fireEvent.click(within(bottomNav).getByLabelText('Geçmiş'));
+    expect(screen.getByText('İşlem Geçmişi')).toBeInTheDocument();
+    fireEvent.click(screen.getByLabelText('Kapat'));
+    await waitFor(() => {
+      expect(screen.queryByText('İşlem Geçmişi')).not.toBeInTheDocument();
+    });
+  });
+
+  it('geçmiş modalı açıkken geçmiş kayıtları doğru gösterilir', () => {
+    render(<App />);
+    fireEvent.click(screen.getByLabelText('Artır'));
+    fireEvent.click(screen.getByLabelText('Sıfırla'));
+    const bottomNav = screen.getAllByRole('navigation')[1];
+    fireEvent.click(within(bottomNav).getByLabelText('Geçmiş'));
+    expect(screen.getByText('İşlem Geçmişi')).toBeInTheDocument();
+    expect(screen.getByText('Sıfırlandı')).toBeInTheDocument();
+  });
 });

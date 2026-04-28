@@ -51,6 +51,7 @@ export default function App() {
   const handleNavigateCounter = useCallback(() => {
     setView('counter');
     setCounterHighlight(true);
+    setTimeout(() => setCounterHighlight(false), 2000);
   }, []);
 
   const handleClearHistory = useCallback(() => {

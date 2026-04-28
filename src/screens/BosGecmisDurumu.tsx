@@ -21,7 +21,7 @@ export function BosGecmisDurumu(props: BosGecmisDurumuProps) {
     <>
       {/* TopAppBar */}
       <header className="w-full sticky top-0 z-50 bg-[#0b1326] flex justify-between items-center px-6 py-4 max-w-full">
-      <div className="text-xl font-bold tracking-tighter text-[#adc6ff] uppercase font-['Inter']">
+      <div className="text-xl font-bold tracking-tighter text-[#adc6ff] uppercase font-['Inter'] cursor-pointer" onClick={onNavigateCounter} role="button" tabIndex={0}>
                   MONOLITH
               </div>
       <div className="flex items-center gap-4 text-[#adc6ff]">
@@ -66,12 +66,12 @@ export function BosGecmisDurumu(props: BosGecmisDurumuProps) {
       {/* BottomNavBar */}
       <nav className="fixed bottom-0 w-full rounded-t-[24px] border-t border-[#adc6ff]/15 shadow-[0_-8px_40px_rgba(173,198,255,0.08)] bg-[#171f33]/60 backdrop-blur-3xl fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-8 pt-4 md:hidden">
       {/* Inactive Tab: Sayaç */}
-      <button className="flex flex-col items-center justify-center text-[#adc6ff]/40 px-6 py-2 hover:text-[#adc6ff] transition-all group" onClick={onNavigateCounter}>
+      <button aria-label="Sayaca Git" className="flex flex-col items-center justify-center text-[#adc6ff]/40 px-6 py-2 hover:text-[#adc6ff] transition-all group" onClick={onNavigateCounter}>
       <span className="material-symbols-outlined mb-1 group-active:scale-95 duration-200" data-icon="add_circle">add_circle</span>
       <span className="font-['Inter'] text-[10px] font-semibold uppercase tracking-widest">Sayaç</span>
       </button>
       {/* Active Tab: Geçmiş */}
-      <button disabled className="flex flex-col items-center justify-center text-[#adc6ff] bg-[#171f33] rounded-xl px-6 py-2 active:scale-95 duration-200">
+      <button aria-label="Geçmiş Sayfasinda" disabled className="flex flex-col items-center justify-center text-[#adc6ff] bg-[#171f33] rounded-xl px-6 py-2 active:scale-95 duration-200">
       <span className="material-symbols-outlined mb-1" data-icon="history" data-weight="fill" style={{fontVariationSettings: "'FILL' 1"}}>history</span>
       <span className="font-['Inter'] text-[10px] font-semibold uppercase tracking-widest">Geçmiş</span>
       </button>

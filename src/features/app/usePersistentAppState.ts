@@ -1,43 +1,21 @@
 import { useState, useCallback, useEffect } from 'react';
 import type { AppState, HistoryEntry, Theme } from '../../types';
-
 const STORAGE_KEY = 'monolith-app-state';
-
 function generateId(): string {
   return `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
 }
-
-function isValidHistoryEntry(entry: unknown): entry is HistoryEntry {
-  if (typeof entry !== 'object' || entry === null) return false;
-  const e = entry as Record<string, unknown>;
-  return (
-    typeof e.id === 'string' &&
-    (e.type === 'increment' || e.type === 'decrement' || e.type === 'reset') &&
-    typeof e.value === 'number' &&
-    typeof e.previousValue === 'number' &&
-    typeof e.timestamp === 'number'
-  );
-}
-
 function getInitialState(): AppState {
   if (typeof window !== 'undefined') {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) {
         const parsed = JSON.parse(raw) as AppState;
-        const validHistory = Array.isArray(parsed.history)
-          ? parsed.history.filter(isValidHistoryEntry).slice(0, 100)
-          : [];
         if (
           typeof parsed.count === 'number' &&
-          parsed.count >= 0 &&
+          Array.isArray(parsed.history) &&
           (parsed.theme === 'light' || parsed.theme === 'dark')
         ) {
-          return {
-            count: parsed.count,
-            history: validHistory,
-            theme: parsed.theme,
-          };
+          return parsed;
         }
       }
     } catch {
@@ -46,10 +24,8 @@ function getInitialState(): AppState {
   }
   return { count: 0, history: [], theme: 'dark' };
 }
-
 export function usePersistentAppState() {
   const [state, setState] = useState<AppState>(getInitialState);
-
   useEffect(() => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
@@ -57,7 +33,6 @@ export function usePersistentAppState() {
       // ignore storage errors
     }
   }, [state]);
-
   const increment = useCallback(() => {
     setState((prev) => {
       const entry: HistoryEntry = {
@@ -74,7 +49,6 @@ export function usePersistentAppState() {
       };
     });
   }, []);
-
   const decrement = useCallback(() => {
     setState((prev) => {
       if (prev.count <= 0) return prev;
@@ -92,7 +66,6 @@ export function usePersistentAppState() {
       };
     });
   }, []);
-
   const reset = useCallback(() => {
     setState((prev) => {
       const entry: HistoryEntry = {
@@ -109,22 +82,18 @@ export function usePersistentAppState() {
       };
     });
   }, []);
-
   const clearHistory = useCallback(() => {
     setState((prev) => ({ ...prev, history: [] }));
   }, []);
-
   const toggleTheme = useCallback(() => {
     setState((prev) => ({
       ...prev,
       theme: prev.theme === 'dark' ? 'light' : 'dark',
     }));
   }, []);
-
   const setTheme = useCallback((theme: Theme) => {
     setState((prev) => ({ ...prev, theme }));
   }, []);
-
   return {
     count: state.count,
     history: state.history,

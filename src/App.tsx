@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef, useEffect } from 'react';
+import { useState, useCallback } from 'react';
 import { AppShell } from './components/AppShell';
 import { SettingsPanel } from './components/SettingsPanel';
 import { ConfirmDialog } from './components/ConfirmDialog';
@@ -30,24 +30,6 @@ export default function App() {
   const [showClearConfirm, setShowClearConfirm] = useState(false);
   const [notes, setNotes] = useState('');
   const [counterHighlight, setCounterHighlight] = useState(false);
-  const highlightTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const initialTimestampRef = useRef<number>(Date.now());
-
-  const clearHighlightTimeout = useCallback(() => {
-    if (highlightTimeoutRef.current) {
-      clearTimeout(highlightTimeoutRef.current);
-      highlightTimeoutRef.current = null;
-    }
-  }, []);
-
-  // Cleanup highlight timeout on unmount to prevent state updates on unmounted component
-  useEffect(() => {
-    return () => {
-      if (highlightTimeoutRef.current) {
-        clearTimeout(highlightTimeoutRef.current);
-      }
-    };
-  }, []);
 
   const handleOpenHistory = useCallback(() => {
     setShowHistoryModal(true);
@@ -62,21 +44,17 @@ export default function App() {
       setShowHistoryModal(true);
     } else {
       setView('history');
+      setShowHistoryModal(false);
     }
     setCounterHighlight(false);
-    clearHighlightTimeout();
-  }, [history.length, clearHighlightTimeout]);
+  }, [history.length]);
 
   const handleNavigateCounter = useCallback(() => {
     setShowHistoryModal(false);
     setView('counter');
-    clearHighlightTimeout();
     setCounterHighlight(true);
-    highlightTimeoutRef.current = setTimeout(() => {
-      setCounterHighlight(false);
-      highlightTimeoutRef.current = null;
-    }, 2000);
-  }, [clearHighlightTimeout]);
+    setTimeout(() => setCounterHighlight(false), 2000);
+  }, []);
 
   const handleClearHistory = useCallback(() => {
     setShowClearConfirm(true);
@@ -108,7 +86,7 @@ export default function App() {
           onOpenSettings={handleOpenSettings}
           onNavigateCounter={handleNavigateCounter}
           onNavigateHistory={handleNavigateHistory}
-          lastUpdateTimestamp={history[0]?.timestamp ?? initialTimestampRef.current}
+          lastUpdateTimestamp={history[0]?.timestamp ?? Date.now()}
           highlight={counterHighlight}
         />
       )}

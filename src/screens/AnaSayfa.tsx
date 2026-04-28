@@ -62,7 +62,7 @@ export function AnaSayfa(props: AnaSayfaProps) {
       <div className="flex items-center gap-6 mt-16">
       {/* Decrease (-) */}
       <button aria-label="Azalt" onClick={onDecrement} disabled={count <= 0} className={clsx(
-        "bg-surface-container-highest text-on-surface w-16 h-16 rounded flex items-center justify-center hover:bg-surface-bright hover:text-[#adc6ff] transition-colors active:scale-95",
+        "bg-surface-container-highest text-on-surface w-16 h-16 rounded flex items-center justify-center hover:bg-surface-bright transition-colors active:scale-95",
         count <= 0 ? "opacity-30 cursor-not-allowed" : "cursor-pointer"
       )}>
       <span className="material-symbols-outlined text-3xl">remove</span>

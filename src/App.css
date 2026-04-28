@@ -16,14 +16,3 @@
   background-color: var(--color-outline-variant);
   border-radius: 3px;
 }
-
-/* Pulse ring animation for Sayaç nav highlight on navigate */
-@keyframes pulse-ring {
-  0% { box-shadow: 0 0 0 0 rgba(173, 198, 255, 0.4); }
-  70% { box-shadow: 0 0 0 8px rgba(173, 198, 255, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(173, 198, 255, 0); }
-}
-
-.animate-pulse-ring {
-  animation: pulse-ring 0.6s ease-out;
-}

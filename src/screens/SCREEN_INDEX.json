@@ -1,0 +1,29 @@
+[
+  {
+    "screenId": "10a4cb512ec9419a9b3ad671d6d51ba6",
+    "title": "Ana Sayfa",
+    "componentName": "AnaSayfa",
+    "file": "src/screens/AnaSayfa.tsx",
+    "buttons": 5,
+    "inputs": 0,
+    "links": 2
+  },
+  {
+    "screenId": "e8e6b145fdd148feb94666dd9e29cd05",
+    "title": "Geçmiş Modalı",
+    "componentName": "GecmisModali",
+    "file": "src/screens/GecmisModali.tsx",
+    "buttons": 4,
+    "inputs": 0,
+    "links": 0
+  },
+  {
+    "screenId": "37a31efcc2074b0ba160c705d2e977b0",
+    "title": "Boş Geçmiş Durumu",
+    "componentName": "BosGecmisDurumu",
+    "file": "src/screens/BosGecmisDurumu.tsx",
+    "buttons": 5,
+    "inputs": 0,
+    "links": 0
+  }
+]

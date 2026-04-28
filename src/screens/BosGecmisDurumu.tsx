@@ -8,6 +8,7 @@
 // 4. Replace placeholder data with props/state
 
 interface BosGecmisDurumuProps {
+  highlight?: boolean;
   onOpenHistory: () => void;
   onOpenSettings: () => void;
   onNavigateCounter: () => void;
@@ -15,7 +16,7 @@ interface BosGecmisDurumuProps {
 }
 
 export function BosGecmisDurumu(props: BosGecmisDurumuProps) {
-  const { onOpenHistory, onOpenSettings, onNavigateCounter, onNavigateHistory } = props;
+  const { onOpenHistory, onOpenSettings, onNavigateCounter, onNavigateHistory, highlight } = props;
 
   return (
     <>
@@ -64,7 +65,7 @@ export function BosGecmisDurumu(props: BosGecmisDurumuProps) {
       {/* BottomNavBar */}
       <nav className="fixed bottom-0 w-full rounded-t-[24px] border-t border-[#adc6ff]/15 shadow-[0_-8px_40px_rgba(173,198,255,0.08)] bg-[#171f33]/60 backdrop-blur-3xl fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-8 pt-4 md:hidden">
       {/* Inactive Tab: Sayaç */}
-      <button aria-label="Sayaç" className="flex flex-col items-center justify-center text-[#adc6ff]/40 px-6 py-2 hover:text-[#adc6ff] transition-all group" onClick={onNavigateCounter}>
+      <button aria-label="Sayaç" className={"flex flex-col items-center justify-center text-[#adc6ff]/40 px-6 py-2 hover:text-[#adc6ff] transition-all group" + (highlight ? " animate-pulse-ring" : "")} onClick={onNavigateCounter}>
       <span className="material-symbols-outlined mb-1 group-active:scale-95 duration-200" data-icon="add_circle">add_circle</span>
       <span className="font-['Inter'] text-[10px] font-semibold uppercase tracking-widest">Sayaç</span>
       </button>

@@ -58,7 +58,6 @@ export function usePersistentAppState() {
 
   const decrement = useCallback(() => {
     setState((prev) => {
-      if (prev.count <= 0) return prev;
       const entry: HistoryEntry = {
         id: generateId(),
         type: 'decrement',

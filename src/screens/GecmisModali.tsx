@@ -39,7 +39,7 @@ export function GecmisModali(props: GecmisModaliProps) {
       <div className="relative z-0 h-screen flex flex-col">
       {/* TopAppBar */}
       <header className="bg-[#0b1326] w-full sticky top-0 z-50 flex justify-between items-center px-6 py-4 max-w-full shadow-none border-none">
-      <button onClick={onNavigateCounter} className="text-xl font-bold tracking-tighter text-[#adc6ff] uppercase cursor-pointer bg-transparent border-none p-0" aria-label="Ana Sayfa">MONOLITH</button>
+      <div className="text-xl font-bold tracking-tighter text-[#adc6ff] uppercase">MONOLITH</div>
       <div className="flex items-center gap-4 hidden">
       <span className="material-symbols-outlined text-[#adc6ff] hover:bg-[#171f33] transition-colors p-2 rounded-full cursor-pointer active:scale-95 transition-transform" data-icon="history">history</span>
       <span className="material-symbols-outlined text-[#adc6ff] hover:bg-[#171f33] transition-colors p-2 rounded-full cursor-pointer active:scale-95 transition-transform" data-icon="contrast">contrast</span>
@@ -52,11 +52,11 @@ export function GecmisModali(props: GecmisModaliProps) {
       </main>
       {/* BottomNavBar */}
       <nav className="bg-[#171f33]/60 backdrop-blur-3xl fixed bottom-0 w-full rounded-t-[24px] border-t border-[#adc6ff]/15 shadow-[0_-8px_40px_rgba(173,198,255,0.08)] fixed bottom-0 left-0 w-full z-10 flex justify-around items-center px-4 pb-8 pt-4 md:hidden">
-      <button aria-label="Sayaç" className="flex flex-col items-center justify-center text-[#adc6ff]/40 px-6 py-2 hover:text-[#adc6ff] transition-all" onClick={onNavigateCounter}>
+      <button className="flex flex-col items-center justify-center text-[#adc6ff]/40 px-6 py-2 hover:text-[#adc6ff] transition-all" onClick={onNavigateCounter}>
       <span className="material-symbols-outlined mb-1 text-2xl" data-icon="add_circle">add_circle</span>
       <span className="font-['Inter'] text-[10px] font-semibold uppercase tracking-widest">Sayaç</span>
       </button>
-      <button aria-label="Geçmiş" className="flex flex-col items-center justify-center text-[#adc6ff] bg-[#adc6ff]/10 rounded-xl px-6 py-2 active:scale-95 duration-200">
+      <button className="flex flex-col items-center justify-center text-[#adc6ff] bg-[#adc6ff]/10 rounded-xl px-6 py-2 active:scale-95 duration-200">
       <span className="material-symbols-outlined mb-1 text-2xl" data-icon="history" style={{fontVariationSettings: "'FILL' 1"}}>history</span>
       <span className="font-['Inter'] text-[10px] font-semibold uppercase tracking-widest">Geçmiş</span>
       </button>

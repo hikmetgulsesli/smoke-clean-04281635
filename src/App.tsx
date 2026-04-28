@@ -74,7 +74,6 @@ export default function App() {
           onReset={reset}
           onOpenHistory={handleOpenHistory}
           onOpenSettings={handleOpenSettings}
-          onNavigateCounter={handleNavigateCounter}
           onNavigateHistory={handleNavigateHistory}
           lastUpdateTimestamp={history[0]?.timestamp ?? Date.now()}
         />

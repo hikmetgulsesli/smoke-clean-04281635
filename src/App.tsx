@@ -29,8 +29,7 @@ export default function App() {
   const [showNotes, setShowNotes] = useState(false);
   const [showClearConfirm, setShowClearConfirm] = useState(false);
   const [notes, setNotes] = useState('');
-  const [counterHighlight, setCounterHighlight] = useState(false);
-
+  
   const handleOpenHistory = useCallback(() => {
     setShowHistoryModal(true);
   }, []);
@@ -78,7 +77,6 @@ export default function App() {
           onNavigateCounter={handleNavigateCounter}
           onNavigateHistory={handleNavigateHistory}
           lastUpdateTimestamp={history[0]?.timestamp ?? Date.now()}
-          highlight={counterHighlight}
         />
       )}
 
@@ -88,7 +86,6 @@ export default function App() {
           onOpenSettings={handleOpenSettings}
           onNavigateCounter={handleNavigateCounter}
           onNavigateHistory={handleNavigateHistory}
-          highlight={counterHighlight}
         />
       )}
 

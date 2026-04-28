@@ -1,12 +1,9 @@
 import { useState, useCallback, useEffect } from 'react';
 import type { AppState, HistoryEntry, Theme } from '../../types';
-
 const STORAGE_KEY = 'monolith-app-state';
-
 function generateId(): string {
   return `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
 }
-
 function getInitialState(): AppState {
   if (typeof window !== 'undefined') {
     try {
@@ -27,10 +24,8 @@ function getInitialState(): AppState {
   }
   return { count: 0, history: [], theme: 'dark' };
 }
-
 export function usePersistentAppState() {
   const [state, setState] = useState<AppState>(getInitialState);
-
   useEffect(() => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
@@ -38,7 +33,6 @@ export function usePersistentAppState() {
       // ignore storage errors
     }
   }, [state]);
-
   const increment = useCallback(() => {
     setState((prev) => {
       const entry: HistoryEntry = {
@@ -55,7 +49,6 @@ export function usePersistentAppState() {
       };
     });
   }, []);
-
   const decrement = useCallback(() => {
     setState((prev) => {
       if (prev.count <= 0) return prev;
@@ -73,7 +66,6 @@ export function usePersistentAppState() {
       };
     });
   }, []);
-
   const reset = useCallback(() => {
     setState((prev) => {
       const entry: HistoryEntry = {
@@ -90,22 +82,18 @@ export function usePersistentAppState() {
       };
     });
   }, []);
-
   const clearHistory = useCallback(() => {
     setState((prev) => ({ ...prev, history: [] }));
   }, []);
-
   const toggleTheme = useCallback(() => {
     setState((prev) => ({
       ...prev,
       theme: prev.theme === 'dark' ? 'light' : 'dark',
     }));
   }, []);
-
   const setTheme = useCallback((theme: Theme) => {
     setState((prev) => ({ ...prev, theme }));
   }, []);
-
   return {
     count: state.count,
     history: state.history,

@@ -21,9 +21,9 @@ export function BosGecmisDurumu(props: BosGecmisDurumuProps) {
     <>
       {/* TopAppBar */}
       <header className="w-full sticky top-0 z-50 bg-[#0b1326] flex justify-between items-center px-6 py-4 max-w-full">
-      <div className="text-xl font-bold tracking-tighter text-[#adc6ff] uppercase font-['Inter'] cursor-pointer" onClick={onNavigateCounter} role="button" tabIndex={0}>
+      <button onClick={onNavigateCounter} aria-label="Ana Sayfa" className="text-xl font-bold tracking-tighter text-[#adc6ff] uppercase font-headline cursor-pointer bg-transparent border-none p-0">
                   MONOLITH
-              </div>
+              </button>
       <div className="flex items-center gap-4 text-[#adc6ff]">
       <button aria-label="Geçmiş" onClick={onOpenHistory} className="hover:bg-[#171f33] transition-colors p-2 rounded-full active:scale-95 transition-transform flex items-center justify-center cursor-pointer">
       <span className="material-symbols-outlined" data-icon="history">history</span>

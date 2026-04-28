@@ -39,7 +39,7 @@ export function GecmisModali(props: GecmisModaliProps) {
       <div className="relative z-0 h-screen flex flex-col">
       {/* TopAppBar */}
       <header className="bg-[#0b1326] w-full sticky top-0 z-50 flex justify-between items-center px-6 py-4 max-w-full shadow-none border-none">
-      <div className="text-xl font-bold tracking-tighter text-[#adc6ff] uppercase">MONOLITH</div>
+      <button onClick={onNavigateCounter} aria-label="Ana Sayfa" className="text-xl font-bold tracking-tighter text-[#adc6ff] uppercase cursor-pointer bg-transparent border-none p-0">MONOLITH</button>
       <div className="flex items-center gap-4 hidden">
       <span className="material-symbols-outlined text-[#adc6ff] hover:bg-[#171f33] transition-colors p-2 rounded-full cursor-pointer active:scale-95 transition-transform" data-icon="history">history</span>
       <span className="material-symbols-outlined text-[#adc6ff] hover:bg-[#171f33] transition-colors p-2 rounded-full cursor-pointer active:scale-95 transition-transform" data-icon="contrast">contrast</span>

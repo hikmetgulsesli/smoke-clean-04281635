@@ -29,7 +29,7 @@ export function AnaSayfa(props: AnaSayfaProps) {
     <>
       {/* TopAppBar */}
       <nav className="w-full sticky top-0 z-50 bg-[#0b1326] flex justify-between items-center px-6 py-4 max-w-full">
-      <div className="text-xl font-bold tracking-tighter text-[#adc6ff] uppercase font-headline cursor-pointer" onClick={onNavigateCounter} role="button" tabIndex={0}>MONOLITH</div>
+      <button onClick={onNavigateCounter} aria-label="Ana Sayfa" className="text-xl font-bold tracking-tighter text-[#adc6ff] uppercase font-headline cursor-pointer bg-transparent border-none p-0">MONOLITH</button>
       <div className="flex items-center gap-4">
       <button aria-label="Geçmiş" onClick={onOpenHistory} className="text-[#adc6ff] hover:bg-[#171f33] transition-colors p-2 rounded-full flex items-center justify-center cursor-pointer active:scale-95">
       <span className="material-symbols-outlined">history</span>

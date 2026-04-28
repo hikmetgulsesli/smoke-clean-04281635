@@ -84,7 +84,7 @@ export function AnaSayfa(props: AnaSayfaProps) {
         "flex flex-col items-center justify-center text-[#adc6ff] bg-[#adc6ff]/10 rounded-xl px-6 py-2 active:scale-95 duration-200 hover:text-[#adc6ff] transition-all group cursor-pointer",
         highlight && "animate-pulse-ring"
       )} type="button">
-      <span className="material-symbols-outlined mb-1 group-hover:scale-110 transition-transform text-[#adc6ff]" style={{fontVariationSettings: "'FILL' 1", color: 'var(--color-on-primary)'}}>add_circle</span>
+      <span className="material-symbols-outlined mb-1 group-hover:scale-110 transition-transform text-[#adc6ff]" style={{fontVariationSettings: "'FILL' 1"}}>add_circle</span>
       <span className="font-['Inter'] text-[10px] font-semibold uppercase tracking-widest">Sayaç</span>
       </button>
       {/* Inactive Nav Item */}

@@ -33,20 +33,39 @@ export default function App() {
   const highlightTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const initialTimestampRef = useRef<number>(Date.now());
 
-  const clearHighlightTimeout = useCallback(() => {
-    if (highlightTimeoutRef.current) {
-      clearTimeout(highlightTimeoutRef.current);
-      highlightTimeoutRef.current = null;
-    }
-  }, []);
-
-  // Cleanup highlight timeout on unmount to prevent state updates on unmounted component
+  // Cleanup highlight timeout on unmount to prevent memory leaks
   useEffect(() => {
     return () => {
       if (highlightTimeoutRef.current) {
         clearTimeout(highlightTimeoutRef.current);
       }
     };
+  }, []);
+
+  // Keyboard Escape closes any open modal or panel
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        if (showClearConfirm) {
+          setShowClearConfirm(false);
+        } else if (showHistoryModal) {
+          setShowHistoryModal(false);
+        } else if (showSettings) {
+          setShowSettings(false);
+        } else if (showNotes) {
+          setShowNotes(false);
+        }
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [showHistoryModal, showSettings, showNotes, showClearConfirm]);
+
+  const clearHighlightTimeout = useCallback(() => {
+    if (highlightTimeoutRef.current) {
+      clearTimeout(highlightTimeoutRef.current);
+      highlightTimeoutRef.current = null;
+    }
   }, []);
 
   const handleOpenHistory = useCallback(() => {
@@ -64,18 +83,14 @@ export default function App() {
       setView('history');
     }
     setCounterHighlight(false);
-    clearHighlightTimeout();
-  }, [history.length, clearHighlightTimeout]);
+  }, [history.length]);
 
   const handleNavigateCounter = useCallback(() => {
     setShowHistoryModal(false);
     setView('counter');
     clearHighlightTimeout();
     setCounterHighlight(true);
-    highlightTimeoutRef.current = setTimeout(() => {
-      setCounterHighlight(false);
-      highlightTimeoutRef.current = null;
-    }, 2000);
+    highlightTimeoutRef.current = setTimeout(() => setCounterHighlight(false), 2000);
   }, [clearHighlightTimeout]);
 
   const handleClearHistory = useCallback(() => {

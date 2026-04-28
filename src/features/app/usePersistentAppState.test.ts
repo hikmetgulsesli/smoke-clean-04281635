@@ -82,6 +82,13 @@ describe('usePersistentAppState', () => {
     expect(parsed.history).toHaveLength(2);
   });
 
+  it('decrement sayacı 0 altına düşürmez', () => {
+    const { result } = renderHook(() => usePersistentAppState());
+    act(() => result.current.decrement());
+    expect(result.current.count).toBe(0);
+    expect(result.current.history).toHaveLength(0);
+  });
+
   it('localStoragetan state geri yükler', () => {
     localStorageMock.setItem('monolith-app-state', JSON.stringify({
       count: 42,

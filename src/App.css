@@ -1,0 +1,18 @@
+/* App-specific styles */
+.glow-effect {
+  box-shadow: 0 4px 20px rgba(173, 198, 255, 0.15);
+}
+
+/* Custom scrollbar for modal content */
+.overflow-y-auto::-webkit-scrollbar {
+  width: 6px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background-color: var(--color-outline-variant);
+  border-radius: 3px;
+}

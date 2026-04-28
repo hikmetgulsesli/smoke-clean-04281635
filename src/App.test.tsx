@@ -116,6 +116,15 @@ describe('Sayaç Uygulaması', () => {
     });
   });
 
+  it('navigasyon sayaç sayfasına döner', async () => {
+    render(<App />);
+    fireEvent.click(screen.getAllByLabelText('Geçmiş')[0]);
+    fireEvent.click(screen.getByLabelText('Kapat'));
+    await waitFor(() => {
+      expect(screen.getByText('Genel Sayaç')).toBeInTheDocument();
+    });
+  });
+
   it('azalt butonu sayacı 0 altına düşürmez', () => {
     render(<App />);
     const azaltBtn = screen.getByLabelText('Azalt');

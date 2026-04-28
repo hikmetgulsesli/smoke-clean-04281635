@@ -52,11 +52,11 @@ export function GecmisModali(props: GecmisModaliProps) {
       </main>
       {/* BottomNavBar */}
       <nav className="bg-[#171f33]/60 backdrop-blur-3xl fixed bottom-0 w-full rounded-t-[24px] border-t border-[#adc6ff]/15 shadow-[0_-8px_40px_rgba(173,198,255,0.08)] fixed bottom-0 left-0 w-full z-10 flex justify-around items-center px-4 pb-8 pt-4 md:hidden">
-      <button className="flex flex-col items-center justify-center text-[#adc6ff]/40 px-6 py-2 hover:text-[#adc6ff] transition-all" onClick={onNavigateCounter}>
+      <button aria-label="Sayaca Git" className="flex flex-col items-center justify-center text-[#adc6ff]/40 px-6 py-2 hover:text-[#adc6ff] transition-all" onClick={onNavigateCounter}>
       <span className="material-symbols-outlined mb-1 text-2xl" data-icon="add_circle">add_circle</span>
       <span className="font-['Inter'] text-[10px] font-semibold uppercase tracking-widest">Sayaç</span>
       </button>
-      <button disabled className="flex flex-col items-center justify-center text-[#adc6ff] bg-[#171f33] rounded-xl px-6 py-2 active:scale-95 duration-200">
+      <button aria-label="Geçmiş Sayfasında" disabled className="flex flex-col items-center justify-center text-[#adc6ff] bg-[#171f33] rounded-xl px-6 py-2 active:scale-95 duration-200">
       <span className="material-symbols-outlined mb-1 text-2xl" data-icon="history" style={{fontVariationSettings: "'FILL' 1"}}>history</span>
       <span className="font-['Inter'] text-[10px] font-semibold uppercase tracking-widest">Geçmiş</span>
       </button>

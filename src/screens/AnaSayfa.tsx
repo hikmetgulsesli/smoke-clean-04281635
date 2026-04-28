@@ -7,8 +7,6 @@
 // 3. Add onClick/onChange handlers to interactive elements
 // 4. Replace placeholder data with props/state
 
-import { clsx } from 'clsx';
-
 interface AnaSayfaProps {
   highlight?: boolean;
   count: number;
@@ -61,10 +59,7 @@ export function AnaSayfa(props: AnaSayfaProps) {
       {/* Action Controls */}
       <div className="flex items-center gap-6 mt-16">
       {/* Decrease (-) */}
-      <button aria-label="Azalt" onClick={onDecrement} disabled={count <= 0} className={clsx(
-        "bg-surface-container-highest text-on-surface w-16 h-16 rounded flex items-center justify-center hover:bg-surface-bright transition-colors active:scale-95",
-        count <= 0 ? "opacity-30 cursor-not-allowed" : "cursor-pointer"
-      )}>
+      <button aria-label="Azalt" onClick={onDecrement} disabled={count <= 0} className={"bg-surface-container-highest text-on-surface w-16 h-16 rounded flex items-center justify-center hover:bg-surface-bright transition-colors active:scale-95 " + (count <= 0 ? "opacity-30 cursor-not-allowed" : "cursor-pointer")}>
       <span className="material-symbols-outlined text-3xl">remove</span>
       </button>
       {/* Primary Action (+) */}
@@ -80,10 +75,7 @@ export function AnaSayfa(props: AnaSayfaProps) {
       {/* BottomNavBar */}
       <nav className="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-8 pt-4 bg-[#171f33]/60 backdrop-blur-3xl rounded-t-[24px] border-t border-[#adc6ff]/15 shadow-[0_-8px_40px_rgba(173,198,255,0.08)]">
       {/* Active Nav Item */}
-      <button aria-label="Sayaç" onClick={onNavigateCounter} className={clsx(
-        "flex flex-col items-center justify-center text-[#adc6ff] bg-[#adc6ff]/10 rounded-xl px-6 py-2 active:scale-95 duration-200 hover:text-[#adc6ff] transition-all group cursor-pointer",
-        highlight && "animate-pulse-ring"
-      )} type="button">
+      <button aria-label="Sayaç" onClick={onNavigateCounter} className={"flex flex-col items-center justify-center text-[#adc6ff] bg-[#adc6ff]/10 rounded-xl px-6 py-2 active:scale-95 duration-200 hover:text-[#adc6ff] transition-all group cursor-pointer " + (highlight ? "animate-pulse-ring" : "")} type="button">
       <span className="material-symbols-outlined mb-1 group-hover:scale-110 transition-transform text-[#adc6ff]" style={{fontVariationSettings: "'FILL' 1"}}>add_circle</span>
       <span className="font-['Inter'] text-[10px] font-semibold uppercase tracking-widest">Sayaç</span>
       </button>

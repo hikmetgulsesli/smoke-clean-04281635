@@ -51,7 +51,7 @@ export function usePersistentAppState() {
       return {
         ...prev,
         count: prev.count + 1,
-        history: [entry, ...prev.history],
+        history: [entry, ...prev.history].slice(0, 100),
       };
     });
   }, []);
@@ -68,7 +68,7 @@ export function usePersistentAppState() {
       return {
         ...prev,
         count: prev.count - 1,
-        history: [entry, ...prev.history],
+        history: [entry, ...prev.history].slice(0, 100),
       };
     });
   }, []);
@@ -85,7 +85,7 @@ export function usePersistentAppState() {
       return {
         ...prev,
         count: 0,
-        history: [entry, ...prev.history],
+        history: [entry, ...prev.history].slice(0, 100),
       };
     });
   }, []);

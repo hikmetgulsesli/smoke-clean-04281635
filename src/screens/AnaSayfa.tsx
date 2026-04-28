@@ -15,12 +15,14 @@ interface AnaSayfaProps {
   onOpenHistory: () => void;
   onOpenSettings: () => void;
   onNavigateHistory: () => void;
+  lastUpdateTimestamp?: number;
 }
 
 export function AnaSayfa(props: AnaSayfaProps) {
-  const { count, onIncrement, onDecrement, onReset, onOpenHistory, onOpenSettings, onNavigateHistory } = props;
-  const now = new Date();
-  const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+  const { count, onIncrement, onDecrement, onReset, onOpenHistory, onOpenSettings, onNavigateHistory, lastUpdateTimestamp } = props;
+  const timeStr = lastUpdateTimestamp
+    ? `${String(new Date(lastUpdateTimestamp).getHours()).padStart(2, '0')}:${String(new Date(lastUpdateTimestamp).getMinutes()).padStart(2, '0')}`
+    : '--:--';
 
   return (
     <>
@@ -71,15 +73,15 @@ export function AnaSayfa(props: AnaSayfaProps) {
       {/* BottomNavBar */}
       <nav className="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-8 pt-4 bg-[#171f33]/60 backdrop-blur-3xl rounded-t-[24px] border-t border-[#adc6ff]/15 shadow-[0_-8px_40px_rgba(173,198,255,0.08)]">
       {/* Active Nav Item */}
-      <a className="flex flex-col items-center justify-center text-[#adc6ff] bg-[#adc6ff]/10 rounded-xl px-6 py-2 active:scale-95 duration-200 hover:text-[#adc6ff] transition-all group cursor-pointer" onClick={(e) => { e.preventDefault(); }}>
+      <button className="flex flex-col items-center justify-center text-[#adc6ff] bg-[#adc6ff]/10 rounded-xl px-6 py-2 active:scale-95 duration-200 hover:text-[#adc6ff] transition-all group cursor-pointer" type="button">
       <span className="material-symbols-outlined mb-1 group-hover:scale-110 transition-transform" style={{fontVariationSettings: "'FILL' 1"}}>add_circle</span>
       <span className="font-['Inter'] text-[10px] font-semibold uppercase tracking-widest">Sayaç</span>
-      </a>
+      </button>
       {/* Inactive Nav Item */}
-      <a className="flex flex-col items-center justify-center text-[#adc6ff]/40 px-6 py-2 hover:text-[#adc6ff] transition-all group cursor-pointer" onClick={(e) => { e.preventDefault(); onNavigateHistory(); }}>
+      <button className="flex flex-col items-center justify-center text-[#adc6ff]/40 px-6 py-2 hover:text-[#adc6ff] transition-all group cursor-pointer" type="button">
       <span className="material-symbols-outlined mb-1 group-hover:scale-110 transition-transform">history</span>
       <span className="font-['Inter'] text-[10px] font-semibold uppercase tracking-widest">Geçmiş</span>
-      </a>
+      </button>
       </nav>
     </>
   );

@@ -204,16 +204,16 @@ describe('Sayaç Uygulaması', () => {
     expect(screen.getByText('Sıfırlandı')).toBeInTheDocument();
   });
 
-  it('geçmiş temizlendikten sonra alt navigasyon boş geçmiş sayfasını açar', () => {
+  it('sayaç navigasyonu butonu vurgu animasyonu tetikler', async () => {
     render(<App />);
-    fireEvent.click(screen.getByLabelText('Artır'));
-    fireEvent.click(screen.getAllByLabelText('Geçmiş')[0]);
-    fireEvent.click(screen.getByLabelText('Geçmişi Temizle'));
-    fireEvent.click(screen.getByText('Temizle'));
-    // After clearing history, bottom nav should navigate to empty history view
     const bottomNav = screen.getAllByRole('navigation')[1];
     fireEvent.click(within(bottomNav).getByLabelText('Geçmiş'));
-    expect(screen.getByText('Henüz işlem kaydı yok')).toBeInTheDocument();
+    fireEvent.click(screen.getByLabelText('Sayaç'));
+    // After navigating back to counter, the Sayaç nav button should have highlight class
+    await waitFor(() => {
+      const sayacBtn = within(screen.getAllByRole('navigation')[1]).getByLabelText('Sayaç');
+      expect(sayacBtn.className).toContain('animate-pulse-ring');
+    });
   });
 
   it('hızlı ardışık navigasyon sayaç sayfasına döner', async () => {
@@ -226,5 +226,17 @@ describe('Sayaç Uygulaması', () => {
     await waitFor(() => {
       expect(screen.getByText('Genel Sayaç')).toBeInTheDocument();
     });
+  });
+
+  it('geçmiş temizlendikten sonra alt navigasyon boş geçmiş sayfasını açar', () => {
+    render(<App />);
+    fireEvent.click(screen.getByLabelText('Artır'));
+    fireEvent.click(screen.getAllByLabelText('Geçmiş')[0]);
+    fireEvent.click(screen.getByLabelText('Geçmişi Temizle'));
+    fireEvent.click(screen.getByText('Temizle'));
+    // After clearing history, bottom nav should navigate to empty history view
+    const bottomNav = screen.getAllByRole('navigation')[1];
+    fireEvent.click(within(bottomNav).getByLabelText('Geçmiş'));
+    expect(screen.getByText('Henüz işlem kaydı yok')).toBeInTheDocument();
   });
 });

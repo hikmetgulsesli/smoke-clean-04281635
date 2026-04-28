@@ -43,9 +43,9 @@ export function AnaSayfa(props: AnaSayfaProps) {
       <main className="flex-grow flex flex-col items-center justify-center px-6 pb-32">
       {/* The Monolithic Container */}
       <div className="bg-surface-container-low rounded-lg flex flex-col items-center p-[24px] shadow-[0_8px_40px_rgba(173,198,255,0.03)] w-full max-w-md">
-      <h2 className="font-headline font-semibold text-lg text-on-surface-variant tracking-wide">
+      <h1 className="font-headline font-semibold text-lg text-on-surface-variant tracking-wide sr-only">
                       Genel Sayaç
-                  </h2>
+                  </h1>
       {/* The Hero Monolith Value */}
       <div className="font-display font-bold text-8xl md:text-9xl text-primary my-[48px] tracking-tighter drop-shadow-[0_0_20px_rgba(173,198,255,0.1)]">
                       {count}

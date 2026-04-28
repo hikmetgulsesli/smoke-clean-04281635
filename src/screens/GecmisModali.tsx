@@ -56,7 +56,7 @@ export function GecmisModali(props: GecmisModaliProps) {
       <span className="material-symbols-outlined mb-1 text-2xl" data-icon="add_circle">add_circle</span>
       <span className="font-['Inter'] text-[10px] font-semibold uppercase tracking-widest">Sayaç</span>
       </button>
-      <button aria-label="Geçmiş" className="flex flex-col items-center justify-center text-[#adc6ff] bg-[#adc6ff]/10 rounded-xl px-6 py-2 active:scale-95 duration-200">
+      <button aria-label="Geçmiş" disabled className="flex flex-col items-center justify-center text-[#adc6ff] bg-[#adc6ff]/10 rounded-xl px-6 py-2 active:scale-95 duration-200">
       <span className="material-symbols-outlined mb-1 text-2xl" data-icon="history" style={{fontVariationSettings: "'FILL' 1"}}>history</span>
       <span className="font-['Inter'] text-[10px] font-semibold uppercase tracking-widest">Geçmiş</span>
       </button>
